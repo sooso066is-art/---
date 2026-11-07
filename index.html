@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#5b36b5">
+<title>لعبة النشاط الطلابي التفاعلية</title>
+<style>
+:root{--purple:#6236b5;--pink:#ef5da8;--blue:#36a6d8;--gold:#f3b93f;--ink:#292342;--soft:#f6f2ff}
+*{box-sizing:border-box}body{margin:0;font-family:Tahoma,Arial,sans-serif;color:var(--ink);background:linear-gradient(135deg,#f8f4ff,#eefaff);min-height:100vh}
+header{background:linear-gradient(110deg,#5830a8,#a34bc2 58%,#ed69a9);color:white;padding:28px 16px 34px;text-align:center;border-radius:0 0 30px 30px}
+header h1{margin:0 0 8px;font-size:clamp(25px,5vw,38px)}header p{margin:0;line-height:1.8}
+.wrap{max-width:1000px;margin:22px auto;padding:0 14px}.panel{background:white;border-radius:22px;padding:20px;margin:16px 0;box-shadow:0 8px 28px #49318b12}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.row>*{flex:1}
+label{font-weight:bold;font-size:14px}input{width:100%;padding:13px;border:1px solid #ddd4f4;border-radius:12px;font:inherit;margin-top:7px}
+button{border:0;border-radius:13px;padding:12px 18px;font:inherit;font-weight:bold;cursor:pointer;transition:.2s}
+button:hover{transform:translateY(-2px);filter:brightness(1.04)}button:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.primary{background:var(--purple);color:white}.secondary{background:#f0eaff;color:var(--purple)}.pink{background:#ffe8f3;color:#b52e78}.gold{background:#fff3d3;color:#795300}
+h2{font-size:21px;margin:0 0 14px}.muted{color:#746d83;font-size:14px;line-height:1.8}
+.domains{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:10px}
+.domain{padding:14px;border-radius:16px;text-align:center;background:#f7f3ff;border:1px solid #eee6ff;font-weight:bold}.domain span{display:block;font-size:27px;margin-bottom:6px}
+.gamegrid{display:grid;grid-template-columns: minmax(240px, .8fr) minmax(280px,1.2fr);gap:20px;align-items:center}
+.wheelbox{text-align:center}.wheel{width:min(280px,75vw);aspect-ratio:1;border-radius:50%;margin:8px auto 14px;border:9px solid white;box-shadow:0 8px 22px #38246b30;background:conic-gradient(#ef6ba8 0 20%,#f5c34c 20% 40%,#4bb8d8 40% 60%,#7b62ce 60% 80%,#6dc79b 80%);position:relative;display:grid;place-items:center}
+.wheel:after{content:"🎯";font-size:52px;background:white;width:92px;height:92px;border-radius:50%;display:grid;place-items:center;box-shadow:0 2px 12px #0002}
+.pointer{font-size:26px;color:#d34b86;line-height:1}
+.stats{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:12px}.stat{flex:1;min-width:85px;background:#f7f3ff;border-radius:13px;padding:10px;text-align:center}.stat b{display:block;font-size:23px;color:var(--purple)}
+.question{font-size:19px;line-height:1.7;font-weight:bold;margin:10px 0 16px}.answers{display:grid;gap:9px}.answer{background:#f6f4fb;text-align:right;border:2px solid transparent}.answer.correct{background:#e6f8ed;border-color:#49b879}.answer.wrong{background:#fff0f0;border-color:#e87979}
+.feedback{padding:13px;border-radius:13px;background:#f2edff;line-height:1.8;margin-top:12px}.timerbar{height:9px;background:#eee;border-radius:10px;overflow:hidden;margin:10px 0}.timerfill{height:100%;background:linear-gradient(90deg,#52bf92,#f2bf4d);width:100%;transition:width 1s linear}
+.hidden{display:none!important}.badgegrid{display:flex;gap:8px;flex-wrap:wrap}.badgeitem{background:#fff4d8;padding:9px 12px;border-radius:30px;font-size:14px}
+table{width:100%;border-collapse:collapse}td,th{padding:10px;border-bottom:1px solid #eee;text-align:right}th{color:var(--purple)}
+footer{text-align:center;padding:20px;color:#80778f;font-size:13px}
+.certificate{border:8px double #b88bdf;padding:30px;text-align:center;background:linear-gradient(135deg,#fff,#fbf5ff);border-radius:15px}
+.certificate h2{font-size:30px;color:var(--purple)}.certname{font-size:27px;font-weight:bold;color:#9c438c;margin:20px}
+@media(max-width:700px){.gamegrid{grid-template-columns:1fr}.panel{padding:16px}.wheel{width:230px}}
+@media print{body{background:white}.no-print,header,.panel:not(#certificatePanel){display:none!important}#certificatePanel{display:block!important;box-shadow:none;margin:0}.certificate{margin:25px}}
+</style></head>
+<body>
+<header><h1>🎯 لعبة النشاط الطلابي التفاعلية</h1><p>تحدّي العقول • فكّري بذكاء • اختاري الإجابة • اجمعي الأوسمة</p></header>
+<main class="wrap">
+<section class="panel" id="welcome">
+<h2>🌟 أهلاً بكِ في تحدّي النشاط الطلابي</h2>
+<p class="muted">رحلة ممتعة عبر المجالات الخمسة لتنمية التفكير الناقد وحل المشكلات. أدخلي اسمكِ ثم ابدئي التحدي.</p>
+<div class="row"><label>اسم الطالبة<input id="studentName" placeholder="اكتبي اسمكِ هنا" maxlength="45"></label><label>الصف / الفصل<input id="studentClass" placeholder="مثال: أول ثانوي / ١"></label></div>
+<p style="margin:16px 0"><button class="primary" id="startBtn">ابدئي اللعب ✨</button></p>
+</section>
+<section class="panel">
+<h2>🧭 المجالات الخمسة</h2><div class="domains">
+<div class="domain"><span>🔬</span>العلم والتكنولوجيا</div><div class="domain"><span>🤝</span>المواطنة والحياة</div><div class="domain"><span>🎨</span>الثقافة والفنون</div><div class="domain"><span>🏕️</span>الكشافة</div><div class="domain"><span>🏃‍♀️</span>الرياضة والصحة</div>
+</div></section>
+<section class="panel hidden" id="game">
+<div class="stats"><div class="stat">النقاط<b id="score">٠</b></div><div class="stat">السؤال<b id="qnum">٠ / ١٠</b></div><div class="stat">المستوى<b id="level">مبتدئة</b></div><div class="stat">الوقت<b id="time">٢٠</b></div></div>
+<div class="gamegrid">
+<div class="wheelbox"><div class="pointer">▼</div><div class="wheel" id="wheel"></div><button class="primary" id="spinBtn">🎡 أدرِي العجلة</button><p class="muted" id="domainName">اختاري المجال لبدء السؤال</p></div>
+<div><h2 id="questionTitle">سؤال التحدي</h2><div class="timerbar"><div class="timerfill" id="timerfill"></div></div><div class="question" id="questionText">أديري العجلة لاختيار مجال السؤال.</div><div class="answers" id="answers"></div><div id="feedback" class="feedback hidden"></div><div class="row" style="margin-top:14px"><button class="secondary" id="nextBtn" disabled>السؤال التالي ←</button><button class="pink" id="soundBtn">🔊 الصوت: تشغيل</button></div></div>
+</div></section>
+<section class="panel hidden" id="result">
+<h2>🏆 أحسنتِ! انتهى التحدي</h2><p id="resultText"></p><div class="badgegrid" id="earnedBadges"></div>
+<h2 style="margin-top:20px">📊 لوحة الصدارة على هذا الجهاز</h2><div id="leaderboard"></div>
+<button class="primary" id="certificateBtn" style="margin-top:15px">🎓 إصدار شهادة التميز</button> <button class="secondary" id="restartBtn">إعادة اللعب</button>
+</section>
+<section class="panel hidden" id="certificatePanel"><div class="certificate"><div style="font-size:48px">🏅</div><h2>شهادة تميّز وإبداع</h2><p>تُمنح هذه الشهادة للطالبة</p><div class="certname" id="certName"></div><p>تقديراً لمشاركتها المتميزة في</p><h2>لعبة النشاط الطلابي التفاعلية</h2><p id="certDetails"></p><p style="margin-top:35px">ثانوية حُكيمة بنت غيلان</p><p>رائدة النشاط: أ/ ساره الحارثي</p><p>مديرة المدرسة: أ/ آمنه عريشي</p><p style="margin-top:25px">مع أطيب الأمنيات بدوام التميز والنجاح ✨</p></div><div class="no-print" style="text-align:center;margin-top:15px"><button class="primary" onclick="window.print()">🖨️ طباعة / حفظ PDF</button></div></section>
+</main><footer>صُممت لتعزيز المشاركة والتفكير الناقد لدى طالبات المرحلة الثانوية</footer>
+<script>
+const domains=[{name:"العلم والتكنولوجيا",icon:"🔬"},{name:"المواطنة والحياة",icon:"🤝"},{name:"الثقافة والفنون",icon:"🎨"},{name:"الكشافة",icon:"🏕️"},{name:"الرياضة والصحة",icon:"🏃‍♀️"}];
+const bank=[
+[{q:"لاحظتِ أن تطبيقاً يطلب صلاحية الوصول إلى جهات الاتصال دون حاجة واضحة. ما التصرف الأكثر وعياً؟",a:["الموافقة فوراً","رفض الصلاحية والتحقق من سبب طلبها","إرسال الرابط للصديقات"],c:1,e:"مبدأ تقليل البيانات يعني منح التطبيق الصلاحيات الضرورية فقط بعد التحقق من الحاجة إليها."},{q:"أي الخيارات يمثل دليلاً أقوى على صحة معلومة علمية؟",a:["انتشارها في وسائل التواصل","رأي شخص مشهور","دراسة موثوقة قابلة للتحقق والتكرار"],c:2,e:"قوة الادعاء العلمي ترتبط بجودة الدليل والمنهجية وإمكانية التحقق، لا بعدد المشاركات."}],
+[{q:"شاهدتِ خبراً يسيء إلى فئة من المجتمع دون مصدر. ما التصرف المسؤول؟",a:["إعادة نشره","التحقق من مصدر موثوق وعدم نشره قبل التأكد","إضافة تعليق ساخر"],c:1,e:"المواطنة الرقمية تتطلب التثبت من الأخبار واحترام الآخرين وتجنب نشر الشائعات."},{q:"اختلفت زميلاتكِ في رأي حول مبادرة مدرسية. ما أفضل طريقة لاتخاذ قرار؟",a:["اختيار رأي الأكثر صوتاً","استبعاد الآراء المخالفة","مناقشة الأدلة والمعايير ثم اختيار الأنسب"],c:2,e:"الحوار المبني على الأدلة والمعايير يتيح قراراً أكثر عدلاً وفاعلية."}],
+[{q:"في معرض فني، كيف تقيّمين عملاً إبداعياً تقييماً منصفاً؟",a:["بناءً على ذوقي وحده","وفق الفكرة والرسالة والتقنيات مع احترام اختلاف الأذواق","بمقارنته بسعره"],c:1,e:"التقييم المنصف يجمع بين معايير واضحة وفهم السياق واحترام تنوع التعبير الفني."},{q:"أي ممارسة تساعد على حفظ التراث الثقافي؟",a:["توثيق الحكايات والحرف ونقلها للأجيال","إهمال الموروث","تغيير المعلومات دون تحقق"],c:0,e:"التوثيق والتعليم والممارسة وسائل مهمة لصون التراث ونقله بصورة دقيقة."}],
+[{q:"خلال رحلة كشفية، لاحظتِ أن المسار المخطط له أصبح غير آمن بسبب الطقس. ماذا تفعلين؟",a:["الاستمرار مهما حدث","تجاهل التحذيرات","إبلاغ القائدة واتباع خطة السلامة البديلة"],c:2,e:"السلامة وإدارة المخاطر أولوية؛ يجب إبلاغ المسؤولات واتباع الخطة المعتمدة."},{q:"ما السلوك الذي يعكس روح الفريق في نشاط كشفي؟",a:["احتكار المهام","تقاسم الأدوار ومساندة الفريق","رفض مساعدة الآخرين"],c:1,e:"التعاون وتوزيع المسؤوليات يعززان نجاح الفريق وروح المبادرة."}],
+[{q:"زميلتكِ تشعر بدوار أثناء النشاط الرياضي. ما التصرف الأول الأنسب؟",a:["إجبارها على إكمال التمرين","إيقاف النشاط وإبلاغ المعلمة وتقديم المساعدة المناسبة","تركها وحدها"],c:1,e:"يجب إيقاف النشاط وتأمين المكان وطلب مساعدة المسؤولة، وعدم تجاهل الأعراض."},{q:"أي خيار يعبر عن مفهوم اللياقة الصحية المستدامة؟",a:["ممارسة شديدة ليوم واحد","اتباع عادات متوازنة ومنتظمة تناسب القدرة","الامتناع عن شرب الماء"],c:1,e:"الاستمرارية والتدرج والتوازن في الحركة والغذاء والراحة أساس نمط الحياة الصحي."}]
+];
+let name="",cls="",score=0,round=0,answered=false,active=-1,seconds=20,timer=null,sound=true,used=[],correct=0;
+const $=id=>document.getElementById(id),digits=n=>String(n).replace(/\d/g,d=>"٠١٢٣٤٥٦٧٨٩"[d]);
+function tone(freq=500,dur=.09){if(!sound)return;try{let c=new(window.AudioContext||window.webkitAudioContext)(),o=c.createOscillator(),g=c.createGain();o.connect(g);g.connect(c.destination);o.frequency.value=freq;g.gain.value=.07;o.start();g.gain.exponentialRampToValueAtTime(.001,c.currentTime+dur);o.stop(c.currentTime+dur)}catch(e){}}
+function start(){name=$("studentName").value.trim();cls=$("studentClass").value.trim();if(!name){alert("فضلاً اكتبي اسم الطالبة أولاً");return}score=0;round=0;correct=0;used=[];$("welcome").classList.add("hidden");$("result").classList.add("hidden");$("certificatePanel").classList.add("hidden");$("game").classList.remove("hidden");updateStats();resetQuestion();window.scrollTo({top:0,behavior:"smooth"})}
+function updateStats(){$("score").textContent=digits(score);$("qnum").textContent=digits(Math.min(round+1,10))+" / ١٠";$("level").textContent=score>=70?"خبيرة التحدي":score>=35?"متقدمة":"مبتدئة"}
+function spin(){if(round>=10)return;answered=false;$("feedback").classList.add("hidden");$("answers").innerHTML="";$("nextBtn").disabled=true;$("questionText").textContent="تدور العجلة...";$("domainName").textContent="استعدّي للتحدي!";$("spinBtn").disabled=true;tone(260,.5);let idx=Math.floor(Math.random()*5);let wheel=$("wheel");wheel.style.transition="transform 2s cubic-bezier(.12,.75,.2,1)";wheel.style.transform=`rotate(${1440+idx*72+Math.random()*50}deg)`;setTimeout(()=>{active=idx;let pool=bank[idx];let q=pool[Math.floor(Math.random()*pool.length)];$("domainName").textContent=domains[idx].icon+" "+domains[idx].name;$("questionText").textContent=q.q;$("questionTitle").textContent="سؤال المجال: "+domains[idx].name;q.a.forEach((v,i)=>{let b=document.createElement("button");b.className="answer";b.textContent=["أ","ب","ج"][i]+" — "+v;b.onclick=()=>choose(i,q,b);$("answers").appendChild(b)});seconds=20;updateTimer();clearInterval(timer);timer=setInterval(()=>{seconds--;updateTimer();if(seconds<=0){clearInterval(timer);if(!answered)choose(-1,q,null,true)}},1000);tone(700,.12);$("spinBtn").disabled=false},2050)}
+function updateTimer(){$("time").textContent=digits(seconds);$("timerfill").style.width=(seconds/20*100)+"%"}
+function choose(i,q,btn,timeout=false){if(answered)return;answered=true;clearInterval(timer);let ok=i===q.c;if(ok){let bonus=Math.floor(seconds/5)*2;score+=10+bonus;correct++;tone(850,.18)}else tone(180,.22);[...$("answers").children].forEach((b,j)=>{b.disabled=true;if(j===q.c)b.classList.add("correct");if(j===i&&!ok)b.classList.add("wrong")});$("feedback").classList.remove("hidden");$("feedback").innerHTML=(ok?"✅ إجابة صحيحة! حصلتِ على "+digits(10+Math.floor(seconds/5)*2)+" نقطة.":"💡 "+(timeout?"انتهى الوقت. ":"ليست الإجابة الصحيحة. ")+"الإجابة الصحيحة: "+["أ","ب","ج"][q.c])+"<br>"+q.e;round++;updateStats();$("qnum").textContent=digits(round)+" / ١٠";$("nextBtn").disabled=false;$("nextBtn").textContent=round>=10?"عرض النتيجة 🏆":"السؤال التالي ←"}
+function resetQuestion(){$("questionText").textContent="أديري العجلة لاختيار مجال السؤال.";$("domainName").textContent="اختاري المجال لبدء السؤال";$("answers").innerHTML="";$("feedback").classList.add("hidden");$("spinBtn").disabled=false;$("nextBtn").disabled=true;$("nextBtn").textContent="السؤال التالي ←";$("time").textContent="٢٠";$("timerfill").style.width="100%"}
+function next(){if(round>=10){finish();return}resetQuestion()}
+function finish(){clearInterval(timer);$("game").classList.add("hidden");$("result").classList.remove("hidden");let pct=correct*10;$("resultText").textContent=`${name}، حققتِ ${digits(score)} نقطة وأجبتِ إجابة صحيحة عن ${digits(correct)} من ١٠. ${pct>=80?"أداء رائع ومستوى متميز!":pct>=50?"أداء جميل، واصلي التطور!":"كل محاولة فرصة جديدة للتعلم!"}`;let badges=[];if(correct>=3)badges.push("🌟 مفكرة ناقدة");if(correct>=6)badges.push("🧠 محللة بارعة");if(correct>=9)badges.push("🏆 نجمة المجالات");if(score>=60)badges.push("⚡ سريعة البديهة");if(!badges.length)badges.push("🌱 بداية موفقة");$("earnedBadges").innerHTML=badges.map(x=>`<span class="badgeitem">${x}</span>`).join("");let arr=JSON.parse(localStorage.getItem("activityLeaders")||"[]");arr.push({name,cls,score,date:new Date().toLocaleDateString("ar-SA")});arr.sort((a,b)=>b.score-a.score);arr=arr.slice(0,10);localStorage.setItem("activityLeaders",JSON.stringify(arr));$("leaderboard").innerHTML="<table><tr><th>الترتيب</th><th>الطالبة</th><th>النقاط</th></tr>"+arr.map((x,i)=>`<tr><td>${digits(i+1)}</td><td>${escapeHtml(x.name)}</td><td>${digits(x.score)}</td></tr>`).join("")+"</table>";window.scrollTo({top:0,behavior:"smooth"})}
+function escapeHtml(s){return s.replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+$("startBtn").onclick=start;$("spinBtn").onclick=spin;$("nextBtn").onclick=next;$("soundBtn").onclick=()=>{sound=!sound;$("soundBtn").textContent=sound?"🔊 الصوت: تشغيل":"🔇 الصوت: إيقاف";tone(500)};$("restartBtn").onclick=()=>{ $("result").classList.add("hidden");$("welcome").classList.remove("hidden");$("studentName").value=name;$("studentClass").value=cls};$("certificateBtn").onclick=()=>{$("certName").textContent=name;$("certDetails").textContent=`المستوى: ${$("level").textContent} • النقاط: ${digits(score)} • الصف: ${cls||"—"} • التاريخ: ${new Date().toLocaleDateString("ar-SA")}`;$("certificatePanel").classList.remove("hidden");$("certificatePanel").scrollIntoView({behavior:"smooth"})};
+</script></body></html>
